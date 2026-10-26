@@ -1,26 +1,248 @@
 @import "tailwindcss";
 
+/* ============================================================
+   ARYA SARKAR — Premium AI portfolio design system
+   Deep obsidian · soft gold · champagne · warm ivory · violet
+   ============================================================ */
+
+@theme {
+  /* Surfaces */
+  --color-obsidian: #08080a;
+  --color-obsidian-2: #0c0c0f;
+  --color-panel: #111014;
+  --color-panel-2: #16151b;
+
+  /* Metals & light */
+  --color-gold: #c9a227;
+  --color-gold-soft: #d9bd6a;
+  --color-champagne: #ead9b0;
+  --color-ivory: #f4efe3;
+  --color-violet: #7c6bae;
+
+  /* Text */
+  --color-ink: #f4efe3;
+  --color-muted: #9c9484;
+  --color-faint: #6a6458;
+
+  /* Lines */
+  --color-hair: rgba(234, 217, 176, 0.1);
+  --color-hair-strong: rgba(234, 217, 176, 0.18);
+
+  --font-display: var(--font-instrument-serif), Georgia, serif;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --ease-lux: cubic-bezier(0.19, 1, 0.22, 1);
+
+  --radius-xl2: 1.75rem;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #08080a;
+  --foreground: #f4efe3;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  border-color: var(--color-hair);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-obsidian);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  /* subtle warm vignette + grain-less gradient wash */
+  background-image:
+    radial-gradient(
+      1200px 700px at 78% -8%,
+      rgba(124, 107, 174, 0.09),
+      transparent 60%
+    ),
+    radial-gradient(
+      1100px 650px at 8% 8%,
+      rgba(201, 162, 39, 0.07),
+      transparent 55%
+    );
+  background-attachment: fixed;
+}
+
+/* Hide native cursor on capable pointers; custom cursor takes over */
+@media (hover: hover) and (pointer: fine) {
+  body.cursor-ready * {
+    cursor: none !important;
+  }
+}
+
+::selection {
+  background: rgba(201, 162, 39, 0.24);
+  color: var(--color-ivory);
+}
+
+/* Thin luxurious scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--color-gold), var(--color-violet));
+  border-radius: 99px;
+  border: 2px solid var(--color-obsidian);
+}
+
+/* ---------- Utilities ---------- */
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(
+    100deg,
+    var(--color-champagne) 0%,
+    var(--color-gold-soft) 42%,
+    var(--color-champagne) 78%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(234, 217, 176, 0.55);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-gold-soft);
+}
+
+.hairline {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-hair-strong),
+    transparent
+  );
+}
+
+.panel {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.025),
+    rgba(255, 255, 255, 0.008)
+  );
+  border: 1px solid var(--color-hair);
+  backdrop-filter: blur(6px);
+}
+
+.noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Focus ring for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-gold-soft);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Animations ---------- */
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, -40px, 0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes catTail {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-9deg);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
